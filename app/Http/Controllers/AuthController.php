@@ -31,7 +31,7 @@ class AuthController extends Controller
     public function login()
     {
         $credentials = request(['email', 'password']);
-Log::info($credentials);
+
         try {
             // attempt to verify the credentials and create a token for the user
             if (! $token = $this->jwt->attempt($credentials)) {

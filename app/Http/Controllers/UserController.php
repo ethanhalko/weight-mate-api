@@ -6,6 +6,7 @@ use App\User;
 use App\WeightEntry;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Tymon\JWTAuth\JWTAuth;
 
 
@@ -90,7 +91,8 @@ class UserController extends Controller
     public function scan(Request $request)
     {
         $barcode = $request->get('barcode');
-
-        return User::where('active', true)->where('barcode', $barcode);
+        $user = User::where('active', true)->where('barcode', $barcode);
+        Log::info($user);
+        return response()->json(['user' => $user]);
     }
 }
