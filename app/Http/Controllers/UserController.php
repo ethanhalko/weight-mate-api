@@ -91,8 +91,8 @@ class UserController extends Controller
     public function scan(Request $request)
     {
         $barcode = $request->get('barcode');
-        $user = User::where('active', true)->where('barcode', $barcode);
-        Log::info($user->first_name);
+        $user = User::where('active', true)->where('barcode', $barcode)->first();
+        Log::info($user->toArray());
         return response()->json(['user' => $user]);
     }
 }
