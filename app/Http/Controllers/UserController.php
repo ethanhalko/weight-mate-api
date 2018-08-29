@@ -92,7 +92,7 @@ class UserController extends Controller
     {
         $barcode = $request->get('barcode');
         $user = User::where('active', true)->where('barcode', $barcode);
-        Log::info($user);
+        Log::info($user->first_name);
         return response()->json(['user' => $user]);
     }
 }
