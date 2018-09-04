@@ -34,6 +34,11 @@
             <div class="row align-items-center pt-1">
                 <input type="file" id="import" name="file">
             </div>
+            <div class="row align-items-center pt-1">
+                <label for="overwrite" class="pr-2">Overwrite</label>
+                <input type="hidden" id="overwrite" name="overwrite" value="0">
+                <input type="checkbox" id="overwrite" name="overwrite" value="1">
+            </div>
             <div class="row align-items-center pt-4">
                 <button class="btn btn-primary" type="submit">Submit</button>
             </div>
@@ -44,7 +49,9 @@
         <a href="{{route('export')}}" class="btn btn-primary">Export</a>
     </div>
 </div>
-
+@if(Session::has('successMsg'))
+    <div class="alert alert-success"> {{ Session::get('successMsg') }}</div>
+@endif
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

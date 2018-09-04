@@ -36,15 +36,30 @@ class ImportsController extends Controller
     {
         $group = $request->input('group');
 
+        $overwriteGroup = $request->input('overwrite');
+
+        /**
+         * @var $group Group
+         */
+        $group = Group::find($group) ?? Group::firstOrCreate(['name' => $group]);
+
+        if ($overwriteGroup) {
+            $group->active = false;
+            $group->users()->update(['active' => false]);
+
+            $group->save();
+            $group = Group::create(['name' => $group->name]);
+        }
+
+
         $this->excel
             ->selectSheets($this->sheets)
             ->load($request->file('file'), function ($reader) use ($group) {
                 $sheets = $reader->select(['first_name', 'last_name', 'cell', 'email', 'barcode', 'week_0_w', 'week_1_w'])->get();
 
-                $groupModel = Group::find($group) ?? Group::firstOrCreate(['name' => $group]);
 
                 $users = new Collection();
-                $sheets->first()->each(function ($item) use ($users, $groupModel) {
+                $sheets->first()->each(function ($item) use ($users, $group) {
                     $user = $item->all();
 
                     if (!array_key_exists('first_name', $user)) {
@@ -52,7 +67,7 @@ class ImportsController extends Controller
                     }
 
                     $user['pin'] = Hash::make(str_replace('-', '', $user['cell']));
-                    $user['group_id'] = $groupModel->id;
+                    $user['group_id'] = $group->id;
                     $users->push(new User($user));
                 });
 
@@ -68,14 +83,13 @@ class ImportsController extends Controller
                             $user->initial_weight = $item['week_0_w'];
                             $user->save();
                             WeightEntry::create(['user_id' => $user->id, 'weight' => $item['week_0_w']]);
-                            if(array_key_exists('week_1_w', $item) && $item['week_1_w']){
+                            if (array_key_exists('week_1_w', $item) && $item['week_1_w']) {
                                 WeightEntry::create(['user_id' => $user->id, 'weight' => $item['week_1_w']]);
                             }
                         }
                     }
                 });
             });
-
-        return response('Successfully Imported', 200);
+        return back()->with('successMsg','Successfully imported!');
     }
 }

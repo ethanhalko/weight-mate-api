@@ -23,7 +23,7 @@ class WeightEntry extends Model
      */
     public function getMessage($user)
     {
-        $entries = WeightEntry::where('user_id', $user->id)->orderBy('created_at', 'asc')->take(2)->get();
+        $entries = WeightEntry::where('user_id', $user->id)->take(-2)->get();
 
         $thisWeek = $entries->last()->weight;
         $lastWeek = $entries->first()->weight;
@@ -33,6 +33,8 @@ class WeightEntry extends Model
 
         $weeklyDiff = floatval(number_format($lastWeek - $thisWeek, 2));
         $totalDiff = floatval(number_format($initial - $thisWeek, 2)) ?? 0;
+
+        Log::info($weeklyDiff);
 
         $weeklyVerb = $this->getVerb($weeklyDiff);
         $totalVerb = $this->getVerb($totalDiff) ?? '';
