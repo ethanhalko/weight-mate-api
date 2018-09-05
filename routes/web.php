@@ -22,3 +22,11 @@ Route::group(['prefix' => 'export', 'middleware' => ['auth']], function () use (
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+
+Route::post('password/set/{user}', [
+   'as' => 'password.set', 'uses' => 'ChangePasswordController@set'
+]);
+
+Route::get('password', [
+   'as' => 'password.index', 'uses' => 'ChangePasswordController@index'
+]);
