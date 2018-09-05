@@ -83,7 +83,7 @@ class UserController extends Controller
 
         $results = User::where('first_name', 'LIKE', '%' . $query . '%')
             ->orWhere('last_name', 'LIKE', '%' . $query . '%')
-            ->andWhere('active', true)
+            ->Where('active', true)
             ->get();
 
         return response()->json($results);
