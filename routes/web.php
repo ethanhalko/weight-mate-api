@@ -1,13 +1,13 @@
 <?php
 
 
-Route::group(['prefix' => 'imports', 'middleware' => ['api']], function () use ($router) {
+Route::group(['prefix' => 'import', 'middleware' => ['api']], function () use ($router) {
     $router->get('/', [
-        'as' => 'imports.index', 'uses' => 'ImportsController@index'
+        'as' => 'import.index', 'uses' => 'ImportsController@index'
     ]);
 
     $router->post('store', [
-        'as' => 'imports.store', 'uses' => 'ImportsController@store'
+        'as' => 'import.store', 'uses' => 'ImportsController@store'
     ]);
 });
 

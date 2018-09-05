@@ -19,7 +19,7 @@
     <div class="row align-items-center pt-4">
         <h3>Import</h3>
     </div>
-    <form method="POST" action="{{ route('imports.store') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('import.store') }}" enctype="multipart/form-data">
         <div class="form-group">
             <div class="row align-items-center">
                 <label for="import">Upload Excel Spreadsheet For Import</label>
@@ -35,8 +35,8 @@
                 <input type="file" id="import" name="file">
             </div>
             <div class="row align-items-center pt-1">
-                <label for="overwrite" class="pr-2">Overwrite</label>
-                <input type="hidden" id="overwrite" name="overwrite" value="0">
+                <label class="form-check-label pr-4" for="overwrite">Overwrite Group</label>
+                <input class="form-check-input" type="hidden" id="overwrite" name="overwrite" value="0">
                 <input type="checkbox" id="overwrite" name="overwrite" value="1">
             </div>
             <div class="row align-items-center pt-4">

@@ -44,7 +44,7 @@ class User extends Authenticatable implements JWTSubject
         'gain',
         'pin',
         'cell',
-        'barcode'
+        'barcode',
     ];
 
     /**
