@@ -124,7 +124,7 @@ class ImportsController extends Controller
                     }
                 });
             });
-        return back()->with('successMsg', 'Successfully imported!');
+        return redirect('/import')->with('status', 'Import Complete!');
     }
 
     /**
