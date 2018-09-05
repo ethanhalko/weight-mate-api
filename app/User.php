@@ -45,6 +45,7 @@ class User extends Authenticatable implements JWTSubject
         'pin',
         'cell',
         'barcode',
+        'password'
     ];
 
     /**
@@ -55,11 +56,6 @@ class User extends Authenticatable implements JWTSubject
     protected $hidden = [
         'password',
     ];
-
-    public function username()
-    {
-        return 'username';
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

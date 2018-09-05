@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('barcode')->nullable();
             $table->boolean('active')->default(true);
             $table->boolean('admin')->default(false);
+            $table->string('remember_token')->nullable();
             $table->timestamps();
         });
     }

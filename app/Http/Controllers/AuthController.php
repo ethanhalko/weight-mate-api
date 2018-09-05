@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Log;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\JWTAuth;
 
@@ -53,5 +52,9 @@ class AuthController extends Controller
         $this->jwt->invalidate();
 
         return response()->json(['response' => true]);
+    }
+
+    public function register() {
+        return redirect('/');
     }
 }

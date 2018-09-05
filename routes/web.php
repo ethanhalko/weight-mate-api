@@ -1,7 +1,7 @@
 <?php
 
 
-Route::group(['prefix' => 'import', 'middleware' => ['api']], function () use ($router) {
+Route::group(['prefix' => 'import', 'middleware' => ['auth']], function () use ($router) {
     $router->get('/', [
         'as' => 'import.index', 'uses' => 'ImportsController@index'
     ]);
@@ -11,10 +11,14 @@ Route::group(['prefix' => 'import', 'middleware' => ['api']], function () use ($
     ]);
 });
 
-Route::group(['prefix' => 'export', 'middleware' => ['api']], function () use ($router) {
+Route::group(['prefix' => 'export', 'middleware' => ['auth']], function () use ($router) {
     $router->get('/', [
         'as' => 'export', 'uses' => 'ExportController@export'
     ]);
 });
 
 
+
+Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('home');

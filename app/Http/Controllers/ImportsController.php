@@ -31,7 +31,6 @@ class ImportsController extends Controller
      */
     public function __construct(Excel $excel)
     {
-        $this->middleware('auth.http');
         $this->excel = $excel;
     }
 
