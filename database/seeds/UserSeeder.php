@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
             'email' => 'info@oldeastvillagefitness.com',
             'password' => Hash::make('oev-fitness-123'),
             'initial_weight' => 100.5,
-            'active' => true,
+            'active' => false,
         ]);
     }
 }

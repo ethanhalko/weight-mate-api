@@ -50,7 +50,6 @@ class ImportsController extends Controller
      */
     public function store(Request $request)
     {
-        ini_set('max_execution_time', 300);
         $group = $request->input('group');
 
         $overwriteGroup = $request->input('overwrite');
@@ -90,41 +89,41 @@ class ImportsController extends Controller
                 )->get();
 
                 $users = new Collection();
-                $sheets->first()->each(function ($item) use ($users, $group) {
-                    $user = $item->all();
+                $sheets->first()
+                    ->where('first_name', '!=', '')
+                    ->each(function ($item) use ($users, $group) {
+                        $user = $item->all();
 
-                    if (!array_key_exists('first_name', $user)) {
+                        if (!array_key_exists('first_name', $user)) {
+                            return false;
+                        }
+
+                        $user['pin'] = Hash::make(str_replace('-', '', $user['cell']));
+                        $user['group_id'] = $group->id;
+                        $users->push(new User($user));
+                    });
+
+                $weightInfo = $sheets->last()->where('first_name', '!=', '');
+
+                $users->each(function ($user) use ($weightInfo) {
+
+                    $item = $weightInfo->where('first_name', '=', $user->first_name)
+                        ->where('last_name', '=', $user->last_name);
+
+                    if (!array_key_exists('week_0_w', $item) || !$item['week_0_w']) {
                         return;
                     }
 
-                    $user['pin'] = Hash::make(str_replace('-', '', $user['cell']));
-                    $user['group_id'] = $group->id;
-                    $users->push(new User($user));
-                });
+                    $user->initial_weight = $item['week_0_w'];
+                    $user->save();
 
-                $weightInfo = $sheets->last();
+                    WeightEntry::create(['user_id' => $user->id, 'weight' => $item['week_0_w']]);
 
-                $users->each(function ($user) use ($weightInfo) {
-                    foreach ($weightInfo->all() as $item) {
-                        $item = $item->all();
-
-                        if (!array_key_exists('week_0_w', $item) || !$item['week_0_w']) {
-                            return;
-                        }
-
-                        if ($item['first_name'] == $user->first_name && $item['last_name'] == $user->last_name) {
-                            $user->initial_weight = $item['week_0_w'];
-                            $user->save();
-                            WeightEntry::create(['user_id' => $user->id, 'weight' => $item['week_0_w']]);
-
-                            for ($i = 1; $i <= 6; ++$i) {
-                                $this->createWeeklyWeightEntry($item, $user, $i);
-                            }
-                        }
+                    for ($i = 1; $i <= 6; ++$i) {
+                        $this->createWeeklyWeightEntry($item, $user, $i);
                     }
                 });
             });
-
         return back()->with('successMsg', 'Successfully imported!');
     }
 
