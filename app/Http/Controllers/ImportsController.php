@@ -102,15 +102,20 @@ class ImportsController extends Controller
                         $user['group_id'] = $group->id;
                         $users->push(new User($user));
                     });
-
                 $weightInfo = $sheets->last()->where('first_name', '!=', '');
 
                 $users->each(function ($user) use ($weightInfo) {
 
                     $item = $weightInfo->where('first_name', '=', $user->first_name)
-                        ->where('last_name', '=', $user->last_name);
+                        ->where('last_name', '=', $user->last_name)
+                        ->where('week_0_w', '!=', '')
+                        ->first();
 
-                    if (!array_key_exists('week_0_w', $item) || !$item['week_0_w']) {
+                    if ($item) {
+                        $item = $item->all();
+                    }
+
+                    if (!$item || !array_key_exists('week_0_w', $item)) {
                         return;
                     }
 
@@ -124,6 +129,7 @@ class ImportsController extends Controller
                     }
                 });
             });
+
         return redirect('/import')->with('status', 'Import Complete!');
     }
 
