@@ -121,6 +121,11 @@ class ImportsController extends Controller
                     }
 
                     $user->initial_weight = $item['week_0_w'];
+
+                    if(!$user->gain) {
+                        $user->gain = false;
+                    }
+
                     $user->save();
 
                     WeightEntry::create(['user_id' => $user->id, 'weight' => $item['week_0_w']]);
