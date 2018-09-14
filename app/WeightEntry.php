@@ -34,8 +34,6 @@ class WeightEntry extends Model
         $weeklyDiff = floatval(number_format($lastWeek - $thisWeek, 2));
         $totalDiff = floatval(number_format($initial - $thisWeek, 2)) ?? 0;
 
-        Log::info($weeklyDiff);
-
         $weeklyVerb = $this->getVerb($weeklyDiff);
         $totalVerb = $this->getVerb($totalDiff) ?? '';
 
@@ -51,10 +49,6 @@ class WeightEntry extends Model
 
         $positive = $this->getMessagePayload($baseMessage, 'Congratulations! You are doing great!');
         $encouragement = $this->getMessagePayload($baseMessage, 'Keep up the effort and you will see results!');
-
-        Log::info($thisWeek . ' - This Week');
-        Log::info($lastWeek . ' - Last Week');
-
 
         if (!$user->gain) {
             return $thisWeek < $lastWeek ? $positive : $encouragement;

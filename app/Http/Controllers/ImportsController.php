@@ -78,6 +78,7 @@ class ImportsController extends Controller
                         'cell',
                         'email',
                         'barcode',
+                        'gain',
                         'week_0_w',
                         'week_1_w',
                         'week_2_w',
