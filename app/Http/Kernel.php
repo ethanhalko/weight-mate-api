@@ -20,7 +20,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
-        \App\Http\Middleware\ApiHeaderMiddleware::class,
+//        \App\Http\Middleware\ApiHeaderMiddleware::class,
         HandleCors::class
     ];
 
@@ -63,6 +63,6 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'auth.http' => \App\Http\Middleware\BasicHttpAuth::class,
-        'auth.api' => \App\Http\Middleware\ApiHeaderMiddleware::class,
+//        'auth.api' => \App\Http\Middleware\ApiHeaderMiddleware::class,
     ];
 }

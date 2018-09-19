@@ -24,18 +24,21 @@
                                           action="{{ route('import.store') }}"
                                           enctype="multipart/form-data">
                                         <div class="form-group">
-                                            <div class="row align-items-center">
-                                                <label for="import">Upload Excel Spreadsheet For Import</label>
-                                            </div>
                                             <div class="row text-left">
-                                                <select class="groups" name="group" style="width: 50%">
+                                                <p>Enter group name or select existing:</p>
+                                            </div>
+                                            <div class="row text-left pb-2">
+                                                <select class="groups" name="group" style="width: 50%" required>
                                                     @foreach($groups as $group)
                                                         <option value="{{$group->id}}">{{$group->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="row align-items-center">
+                                                <label for="import">Upload Excel Spreadsheet For Import</label>
+                                            </div>
                                             <div class="row align-items-center pt-1">
-                                                <input type="file" id="import" name="file">
+                                                <input type="file" id="import" name="file" required>
                                             </div>
                                             <div class="row align-items-center pt-1">
                                                 <label class="form-check-label pr-4" for="overwrite">Overwrite
@@ -69,7 +72,16 @@
                         </div>
                     </div>
                 </div>
+                <div class="card mt-4">
+                    <div class="card-header">Download App</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <a href="{{route('app.download')}}" class="btn btn-primary btn-block m-5">Download App</a>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
 @endsection

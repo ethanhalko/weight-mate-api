@@ -17,6 +17,11 @@ Route::group(['prefix' => 'export', 'middleware' => ['auth']], function () use (
     ]);
 });
 
+Route::group(['prefix' => 'app', 'middleware' => ['auth']], function () use ($router) {
+    $router->get('download', [
+        'as' => 'app.download', 'uses' => 'AppController@download'
+    ]);
+});
 
 
 Auth::routes();
