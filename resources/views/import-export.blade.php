@@ -76,7 +76,8 @@
                     <div class="card-header">Download App</div>
                     <div class="card-body">
                         <div class="row">
-                            <a href="{{route('app.download')}}" class="btn btn-primary btn-block m-5">Download App</a>
+                            <a href="itms-services://?action=download-manifest&amp;url=https://weightmate.ca/DistributionManifest.plist"
+                               class="btn btn-primary btn-block m-5">Download App</a>
                         </div>
                     </div>
                 </div>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Weight Mate.ipa</key>
+	<array>
+		<dict>
+			<key>assets</key>
+            <array>
+                <dict>
+                    <key>kind</key>
+                    <string>software-package</string>
+                    <key>url</key>
+                    <string>https://weightmate.ca/app/download</string>
+                </dict>
+            </array>
+			<key>architectures</key>
+			<array>
+				<string>arm64</string>
+			</array>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>5DD131A3E16C6A6BC9D7D05444720A73E93AC3D3</string>
+				<key>dateExpires</key>
+				<string>2019-08-14</string>
+				<key>type</key>
+				<string>iOS Distribution</string>
+			</dict>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>KYF7C8CAGJ.ca.weightmate.app</string>
+				<key>com.apple.developer.team-identifier</key>
+				<string>KYF7C8CAGJ</string>
+				<key>get-task-allow</key>
+				<false/>
+			</dict>
+			<key>name</key>
+			<string>Weight Mate.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>d94ab924-5606-456f-9339-6df0ae00a374</string>
+				<key>name</key>
+				<string>iOS Team Ad Hoc Provisioning Profile: ca.weightmate.app</string>
+			</dict>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>KYF7C8CAGJ</string>
+				<key>name</key>
+				<string>Ethan Halko</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
