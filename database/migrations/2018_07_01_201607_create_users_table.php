@@ -15,13 +15,10 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('user_name')->nullable();
-            $table->string('email');
-            $table->string('password')->nullable();
-            $table->string('pin')->nullable();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('cell')->nullable();
+            $table->string('email')->nullable();
+            $table->string('password')->nullable();
             $table->double('initial_weight', 5, 2)->nullable();
             $table->double('goal_weight', 5, 2)->default(0);
             $table->string('barcode')->nullable();

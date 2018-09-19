@@ -14,12 +14,12 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::create([
-            'first_name' => 'test',
+            'first_name' => 'OEV',
             'last_name' => 'admin',
-            'email' => 'info@oldeastvillagefitness.com',
             'password' => Hash::make('temp'),
             'initial_weight' => 100.5,
             'active' => false,
+            'admin' => true
         ]);
     }
 }

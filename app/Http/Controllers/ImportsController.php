@@ -18,14 +18,6 @@ class ImportsController extends Controller
     protected $excel;
 
     /**
-     * @var array
-     */
-    protected $sheets = [
-        'Deposits',
-        'Weigh-In Sheet',
-    ];
-
-    /**
      * ImportsController constructor.
      * @param Excel $excel
      */
@@ -68,46 +60,23 @@ class ImportsController extends Controller
         }
 
 
-        $this->excel
-            ->selectSheets($this->sheets)
-            ->load($request->file('file'), function ($reader) use ($group) {
-                $sheets = $reader->select(
-                    [
-                        'first_name',
-                        'last_name',
-                        'cell',
-                        'email',
-                        'barcode',
-                        'gain',
-                        'week_0_w',
-                        'week_1_w',
-                        'week_2_w',
-                        'week_3_w',
-                        'week_4_w',
-                        'week_5_w',
-                        'week_6_w',
-                    ]
-                )->get();
+        $this->excel->load($request->file('file'), function ($reader) use ($group) {
+                $sheets = $reader->get();
 
                 $users = new Collection();
-                $sheets->first()
-                    ->where('first_name', '!=', '')
+                $sheet = $sheets->where('first_name', '!=', '')
                     ->each(function ($item) use ($users, $group) {
                         $user = $item->all();
-
                         if (!array_key_exists('first_name', $user)) {
                             return false;
                         }
-
-                        $user['pin'] = Hash::make(str_replace('-', '', $user['cell']));
                         $user['group_id'] = $group->id;
                         $users->push(new User($user));
                     });
-                $weightInfo = $sheets->last()->where('first_name', '!=', '');
 
-                $users->each(function ($user) use ($weightInfo) {
+                $users->each(function ($user) use ($sheet) {
 
-                    $item = $weightInfo->where('first_name', '=', $user->first_name)
+                    $item = $sheet->where('first_name', '=', $user->first_name)
                         ->where('last_name', '=', $user->last_name)
                         ->where('week_0_w', '!=', '')
                         ->first();
