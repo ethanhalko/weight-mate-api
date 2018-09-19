@@ -8,6 +8,6 @@ class AppController extends Controller
 {
     public function download()
     {
-        return response()->download(storage_path('Weight Mate.ipa'));
+        return response()->download(storage_path('WeightMate.ipa'));
     }
 }

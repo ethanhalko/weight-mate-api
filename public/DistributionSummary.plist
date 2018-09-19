@@ -11,7 +11,7 @@
                     <key>kind</key>
                     <string>software-package</string>
                     <key>url</key>
-                    <string>https://weightmate.ca/app/download</string>
+                    <string>https://weightmate.ca/WeightMate.ipa</string>
                 </dict>
             </array>
 			<key>architectures</key>
