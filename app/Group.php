@@ -31,23 +31,31 @@ class Group extends Model
 
         foreach ($users as $user) {
             $userInfo = [
-                'Name' => $user->name
+                'Name' => $user->name,
+                'Weight Entry 1' => null,
+                'Weight Entry 2' => null,
+                'Weight Entry 3' => null,
+                'Weight Entry 4' => null,
+                'Weight Entry 5' => null,
+                'Weight Entry 6' => null,
+                'Total Difference' => null,
             ];
 
-            $latestEntry = $user->weightEntries->where('created_at', '>=', Carbon::today()->startOfWeek())->last();
+            $latestEntry = $user->weightEntries->last();
 
-            if($user->weightEntries->isEmpty()) {
+            if ($user->weightEntries->isEmpty()) {
                 $userInfo['Weight Entry 1'] = $user->initial_weight;
+            } else {
+                foreach ($user->weightEntries as $index => $weight) {
+                    $userInfo['Weight Entry ' . ($index + 1)] = $weight->weight;
+                }
             }
 
-            foreach ($user->weightEntries as $index => $weight) {
-                $userInfo['Weight Entry ' . ($index + 1)] = $weight->weight;
+            if ($latestEntry) {
+                $diff = $user->initial_weight - $latestEntry->weight;
+
+                $userInfo['Total Difference'] = (float)number_format($diff, 2);
             }
-
-            $diff = $user->initial_weight - ($latestEntry->weight ?? $user->initial_weight);
-
-            $userInfo['Total Difference'] = (float)number_format($diff, 2);
-
 
             $formattedUsers[] = $userInfo;
         }
