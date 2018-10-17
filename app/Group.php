@@ -4,6 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 use Laravel\Lumen\Auth\Authorizable;
 
 class Group extends Model
@@ -34,18 +35,19 @@ class Group extends Model
                 'Last Name' => $user->last_name,
                 'Cell #' => $user->cell,
                 'Email' => $user->email,
-                'Initial Weight' => $user->initial_weight,
             ];
 
             $latestEntry = $user->weightEntries->where('created_at', '>=', Carbon::today()->startOfWeek())->last();
 
-            if ($latestEntry) {
-                $userInfo['Updated Weight'] = $latestEntry->weight;
-                $diff = $user->initial_weight - $latestEntry->weight;
-
-                $userInfo['Total Difference'] = (float)number_format($diff, 2);
-
+            foreach ($user->weightEntries as $index => $weight) {
+                $userInfo['Weight Week ' . ($index + 1)] = $weight->weight;
             }
+
+
+            $diff = $user->initial_weight - ($latestEntry->weight ?? $user->initial_weight);
+
+            $userInfo['Total Difference'] = (float)number_format($diff, 2);
+
 
             $formattedUsers[] = $userInfo;
         }
