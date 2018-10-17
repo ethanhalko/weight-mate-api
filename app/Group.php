@@ -36,10 +36,13 @@ class Group extends Model
 
             $latestEntry = $user->weightEntries->where('created_at', '>=', Carbon::today()->startOfWeek())->last();
 
-            foreach ($user->weightEntries as $index => $weight) {
-                $userInfo['Weight Week ' . ($index + 1)] = $weight->weight;
+            if($user->weightEntries->isEmpty()) {
+                $userInfo['Weight Entry 1'] = $user->initial_weight;
             }
 
+            foreach ($user->weightEntries as $index => $weight) {
+                $userInfo['Weight Entry ' . ($index + 1)] = $weight->weight;
+            }
 
             $diff = $user->initial_weight - ($latestEntry->weight ?? $user->initial_weight);
 
