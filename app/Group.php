@@ -31,10 +31,7 @@ class Group extends Model
 
         foreach ($users as $user) {
             $userInfo = [
-                'First Name' => $user->first_name,
-                'Last Name' => $user->last_name,
-                'Cell #' => $user->cell,
-                'Email' => $user->email,
+                'Name' => $user->name
             ];
 
             $latestEntry = $user->weightEntries->where('created_at', '>=', Carbon::today()->startOfWeek())->last();
