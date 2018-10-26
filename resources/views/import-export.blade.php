@@ -62,6 +62,41 @@
                         </div>
                     </div>
                 </div>
+                {{--<div class="card mt-4">--}}
+                    {{--<div class="card-header">Edit Groups</div>--}}
+                    {{--<div class="card-body">--}}
+                        {{--@if (session('status'))--}}
+                            {{--<div class="alert alert-success" role="alert">--}}
+                                {{--{{ session('status') }}--}}
+                            {{--</div>--}}
+                        {{--@endif--}}
+                        {{--<table class="table">--}}
+                            {{--<thead>--}}
+                            {{--<tr>--}}
+                                {{--<th>Group Name:</th>--}}
+                                {{--<th class="text-right">Delete?:</th>--}}
+                            {{--</tr>--}}
+                            {{--</thead>--}}
+                            {{--<tbody>--}}
+                            {{--@foreach($groups as $group)--}}
+
+                                {{--<tr>--}}
+                                    {{--<td>{{$group->name}}</td>--}}
+                                    {{--<td class="text-right">--}}
+                                        {{--<form method="POST" action="{{route('groups.delete')}}">--}}
+                                            {{--{{ csrf_field() }}--}}
+                                            {{--{{ method_field('DELETE') }}--}}
+                                            {{--<input type="hidden" value="{{$group->id}}">--}}
+                                            {{--<button class="btn btn-link text-danger"><i class="fas fa-trash-alt"></i></button>--}}
+                                        {{--</form>--}}
+                                    {{--</td>--}}
+                                {{--</tr>--}}
+
+                            {{--@endforeach--}}
+                            {{--</tbody>--}}
+                        {{--</table>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
             </div>
             <div class="col-md-6">
                 <div class="card">

@@ -23,6 +23,11 @@ Route::group(['prefix' => 'app', 'middleware' => ['auth']], function () use ($ro
     ]);
 });
 
+Route::group(['prefix' => 'groups', 'middleware' => ['auth']], function () use ($router) {
+    $router->delete('remove', [
+        'as' => 'groups.delete', 'uses' => 'GroupController@delete'
+    ]);
+});
 
 Auth::routes();
 

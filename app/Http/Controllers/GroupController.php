@@ -30,6 +30,11 @@ class GroupController extends Controller
         return response()->json(Group::all()->where('active', true));
     }
 
+    public function delete(Request $request)
+    {
+
+    }
+
     /**
      * @param $group
      * @return \Illuminate\Http\JsonResponse
