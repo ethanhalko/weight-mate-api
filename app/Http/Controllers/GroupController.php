@@ -32,7 +32,18 @@ class GroupController extends Controller
 
     public function delete(Request $request)
     {
+        $id = $request->input('id');
+        $group = Group::find($id);
 
+        $group->users->each(function($user) {
+            $user->active = false;
+            $user->save();
+        });
+
+        $group->active = false;
+        $group->save();
+
+        return redirect('/import')->with('status_delete', 'Group successfully deleted');
     }
 
     /**

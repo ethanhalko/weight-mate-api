@@ -62,46 +62,51 @@
                         </div>
                     </div>
                 </div>
-                {{--<div class="card mt-4">--}}
-                    {{--<div class="card-header">Edit Groups</div>--}}
-                    {{--<div class="card-body">--}}
-                        {{--@if (session('status'))--}}
-                            {{--<div class="alert alert-success" role="alert">--}}
-                                {{--{{ session('status') }}--}}
-                            {{--</div>--}}
-                        {{--@endif--}}
-                        {{--<table class="table">--}}
-                            {{--<thead>--}}
-                            {{--<tr>--}}
-                                {{--<th>Group Name:</th>--}}
-                                {{--<th class="text-right">Delete?:</th>--}}
-                            {{--</tr>--}}
-                            {{--</thead>--}}
-                            {{--<tbody>--}}
-                            {{--@foreach($groups as $group)--}}
-
-                                {{--<tr>--}}
-                                    {{--<td>{{$group->name}}</td>--}}
-                                    {{--<td class="text-right">--}}
-                                        {{--<form method="POST" action="{{route('groups.delete')}}">--}}
-                                            {{--{{ csrf_field() }}--}}
-                                            {{--{{ method_field('DELETE') }}--}}
-                                            {{--<input type="hidden" value="{{$group->id}}">--}}
-                                            {{--<button class="btn btn-link text-danger"><i class="fas fa-trash-alt"></i></button>--}}
-                                        {{--</form>--}}
-                                    {{--</td>--}}
-                                {{--</tr>--}}
-
-                            {{--@endforeach--}}
-                            {{--</tbody>--}}
-                        {{--</table>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
+                <div class="card mt-4">
+                    <div class="card-header">Edit Groups</div>
+                    <div class="card-body p-0">
+                        @if (session('status_delete'))
+                            <div class="alert alert-danger m-2" role="alert">
+                                {{ session('status_delete') }}
+                            </div>
+                        @endif
+                        <table class="table m-0">
+                            <thead>
+                            <tr>
+                                <th>Group Name:</th>
+                                <th class="text-right">Delete?:</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @forelse($groups as $group)
+                                <tr>
+                                    <td>{{$group->name}}</td>
+                                    <td class="text-right">
+                                        <form method="POST" action="{{route('groups.delete')}}" class="delete">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
+                                            <input type="hidden" name="id" value="{{$group->id}}">
+                                            <button class="btn btn-link text-danger"><i class="fas fa-trash-alt"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr><td><em>You have no groups</em></td></tr>
+                            @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">Export</div>
                     <div class="card-body">
+                        @if (session('status_export'))
+                            <div class="alert alert-danger m-2" role="alert">
+                                {{ session('status_export') }}
+                            </div>
+                        @endif
                         <div class="row">
                             <a href="{{route('export')}}" class="btn btn-primary btn-block m-5">Export</a>
                         </div>
@@ -120,4 +125,9 @@
 
         </div>
     </div>
+    <script type="text/javascript">
+        $(".delete").on("submit", function(){
+            return confirm("Are you sure you want to delete this group? This cannot be undone!");
+        });
+    </script>
 @endsection
