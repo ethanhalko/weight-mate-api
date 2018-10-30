@@ -45,11 +45,11 @@ class WeightEntryController extends Controller
     {
         $user = User::find($request->input('user'));
         $weightEntry = new WeightEntry();
-
+        $lastEntry = WeightEntry::where('user_id', $user->id)->latest()->first();
         Log::info('Weight entered: ' . $user->name ?? 'nope' . ' - ' . $request->input('weight'));
 
         if ($user) {
-            if (WeightEntry::latest()->first() && Carbon::parse(WeightEntry::latest()->first()->created_at)->isToday()) {
+            if ($lastEntry && Carbon::parse($lastEntry->created_at)->isToday()) {
                 WeightEntry::latest()->first()->delete();
             }
 
