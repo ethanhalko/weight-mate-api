@@ -10,4 +10,9 @@ class AppController extends Controller
     {
         return response()->download(storage_path('WeightMate.ipa'));
     }
+
+    public function template()
+    {
+        return response()->download(storage_path('weight-mate-import-template.xlsx'));
+    }
 }

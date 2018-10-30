@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header">Import</div>
+                    <div class="card-header">Import - <a href="{{route('app.template')}}">Download template</a></div>
                     <div class="card-body">
                         @if (session('status'))
                             <div class="alert alert-success" role="alert">
@@ -86,12 +86,15 @@
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
                                             <input type="hidden" name="id" value="{{$group->id}}">
-                                            <button class="btn btn-link text-danger"><i class="fas fa-trash-alt"></i></button>
+                                            <button class="btn btn-link text-danger"><i class="fas fa-trash-alt"></i>
+                                            </button>
                                         </form>
                                     </td>
                                 </tr>
                             @empty
-                                <tr><td><em>You have no groups</em></td></tr>
+                                <tr>
+                                    <td><em>You have no groups</em></td>
+                                </tr>
                             @endforelse
                             </tbody>
                         </table>
@@ -126,7 +129,7 @@
         </div>
     </div>
     <script type="text/javascript">
-        $(".delete").on("submit", function(){
+        $(".delete").on("submit", function () {
             return confirm("Are you sure you want to delete this group? This cannot be undone!");
         });
     </script>

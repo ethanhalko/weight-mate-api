@@ -21,6 +21,9 @@ Route::group(['prefix' => 'app', 'middleware' => ['auth']], function () use ($ro
     $router->get('download', [
         'as' => 'app.download', 'uses' => 'AppController@download'
     ]);
+    $router->get('template', [
+        'as' => 'app.template', 'uses' => 'AppController@template'
+    ]);
 });
 
 Route::group(['prefix' => 'groups', 'middleware' => ['auth']], function () use ($router) {
